@@ -31,3 +31,20 @@ def save_itk(filename, scan, origin, spacing, dtype='int16'):
     writer = sitk.ImageFileWriter()
     writer.Execute(stk, filename, True)
 
+def normalize(image):
+    # normalize the image
+    mean, std = np.mean(image), np.std(image)
+    image = image - mean
+    image = image / std
+    return image
+
+
+# a transform example for pytorch transform compose 
+class AddChannel:
+    def __call__(self, img):
+        """
+        Apply the transform to `img`.
+        """
+        return img[None]
+
+    
