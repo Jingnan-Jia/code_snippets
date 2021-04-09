@@ -47,4 +47,12 @@ class AddChannel:
         """
         return img[None]
 
+def nearest_dis_to_center(img):
+    # calculate the nearest distance from positive voxels to the center of the image
+    position = np.where(img > 0)
+    coordinates = np.transpose(np.array(position))  # get the coordinates where the voxels is not 0
+    cposition = np.array(img.shape) / 2  # center point position/coordinate
+    distance, index = spatial.KDTree(coordinates).query(cposition)
     
+    return distance
+
